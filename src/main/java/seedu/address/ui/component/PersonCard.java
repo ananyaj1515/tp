@@ -13,7 +13,7 @@ import seedu.address.ui.UiPart;
 /**
  * A UI component that displays information of a {@code Person}.
  */
-public class `PersonCard extends UiPart<Region> {
+public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "component/PersonListCard.fxml";
 
