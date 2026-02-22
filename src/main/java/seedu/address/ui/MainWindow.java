@@ -16,6 +16,14 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.component.CommandBox;
+import seedu.address.ui.component.FilterPanel;
+import seedu.address.ui.component.PersonListPanel;
+import seedu.address.ui.component.ResultDisplay;
+import seedu.address.ui.component.StatusBarFooter;
+import seedu.address.ui.tab.dashboard.DashboardTab;
+import seedu.address.ui.tab.directory.DirectoryTab;
+import seedu.address.ui.tab.settings.SettingsTab;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -42,7 +50,19 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
+    private StackPane filterPanelPlaceholder;
+
+    @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane directoryTabPlaceholder;
+
+    @FXML
+    private StackPane dashboardTabPlaceholder;
+
+    @FXML
+    private StackPane settingsTabPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -78,6 +98,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     * 
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -110,6 +131,18 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        DirectoryTab directoryTab = new DirectoryTab();
+        directoryTabPlaceholder.getChildren().add(directoryTab.getRoot());
+
+        DashboardTab dashboardTab = new DashboardTab();
+        dashboardTabPlaceholder.getChildren().add(dashboardTab.getRoot());
+
+        SettingsTab settingsTab = new SettingsTab();
+        settingsTabPlaceholder.getChildren().add(settingsTab.getRoot());
+
+        FilterPanel filterPanel = new FilterPanel();
+        filterPanelPlaceholder.getChildren().add(filterPanel.getRoot());
+
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
@@ -127,12 +160,34 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
         if (guiSettings.getWindowCoordinates() != null) {
-            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
-            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
+            double x = guiSettings.getWindowCoordinates().getX();
+            double y = guiSettings.getWindowCoordinates().getY();
+
+            // Validate that the saved coordinates are within the bounds of an active
+            // screen.
+            // This prevents the application from opening off-screen if a monitor was
+            // disconnected.
+            boolean isScreenVisible = false;
+            for (javafx.stage.Screen screen : javafx.stage.Screen.getScreens()) {
+                if (screen.getVisualBounds().contains(x, y)) {
+                    isScreenVisible = true;
+                    break;
+                }
+            }
+
+            if (isScreenVisible) {
+                primaryStage.setX(x);
+                primaryStage.setY(y);
+                logger.config("Window initialized at position: (" + x + ", " + y + ")");
+            } else {
+                logger.config("Saved window position (" + x + ", " + y
+                        + ") is not visible on any active screen; ignoring saved coordinates.");
+            }
         }
+
+        // Ensure the application opens in a full-screen (maximized) state
+        primaryStage.setMaximized(true);
     }
 
     /**
