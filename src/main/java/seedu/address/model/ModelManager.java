@@ -4,9 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
@@ -23,6 +26,11 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
+    /** The currently selected person in the filtered person list.
+     * This is an optional value that may be empty if no person is selected.
+     */
+    private final Optional<Person> person;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -34,6 +42,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.person = Optional.empty();
     }
 
     public ModelManager() {
@@ -105,9 +114,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
+    public void editPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-
         addressBook.setPerson(target, editedPerson);
     }
 
@@ -122,6 +130,22 @@ public class ModelManager implements Model {
         return filteredPersons;
     }
 
+    /** Returns an unmodifiable view of none or one selected person in the filtered person list. */
+    @Override
+    public ObservableValue<Optional<Person>> getPerson() {
+        return new SimpleObjectProperty<>(person);
+    }
+
+    @Override
+    public void setPerson(Person person) {
+        this.person.map(p -> person)
+                .orElseGet(() -> Optional.empty());
+    }
+
+    /**
+     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * @param predicate The predicate used to filter the list of persons.
+     */
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
@@ -142,7 +166,8 @@ public class ModelManager implements Model {
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPersons.equals(otherModelManager.filteredPersons);
+                && filteredPersons.equals(otherModelManager.filteredPersons)
+                && person.equals(otherModelManager.person);
     }
 
 }

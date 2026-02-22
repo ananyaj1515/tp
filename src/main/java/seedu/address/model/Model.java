@@ -1,8 +1,10 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
@@ -70,11 +72,22 @@ public interface Model {
     void addPerson(Person person);
 
     /**
+     * Returns an {@code ObservableValue} that contains the currently selected person,
+     * or an empty {@code Optional} if no person is selected.
+     */
+    ObservableValue<Optional<Person>> getPerson();
+
+    /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    void setPerson(Person target, Person editedPerson);
+    void editPerson(Person target, Person editedPerson);
+
+    /**
+     * Sets the currently viewed person,
+     */
+    void setPerson(Person person);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
