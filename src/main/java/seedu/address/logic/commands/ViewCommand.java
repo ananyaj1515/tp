@@ -1,10 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
-import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
@@ -40,7 +38,7 @@ public class ViewCommand extends Command {
 
         Person personToView = lastShownList.get(index.getZeroBased());
 
-        model.setPerson(personToView);
+        model.setSelectedPerson(personToView);
 
         return new CommandResult(String.format(MESSAGE_VIEW_PERSON_SUCCESS, index.getOneBased()));
     }

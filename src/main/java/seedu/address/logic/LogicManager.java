@@ -75,7 +75,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableValue<Optional<Person>> getPerson() {
-        return model.getPerson();
+        return model.getSelectedPerson();
     }
 
     @Override

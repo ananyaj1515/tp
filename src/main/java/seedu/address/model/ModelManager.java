@@ -29,7 +29,7 @@ public class ModelManager implements Model {
     /** The currently selected person in the filtered person list.
      * This is an optional value that may be empty if no person is selected.
      */
-    private final Optional<Person> person;
+    private final Optional<Person> selectedPerson;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -42,7 +42,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        this.person = Optional.empty();
+        this.selectedPerson = Optional.empty();
     }
 
     public ModelManager() {
@@ -132,13 +132,13 @@ public class ModelManager implements Model {
 
     /** Returns an unmodifiable view of none or one selected person in the filtered person list. */
     @Override
-    public ObservableValue<Optional<Person>> getPerson() {
-        return new SimpleObjectProperty<>(person);
+    public ObservableValue<Optional<Person>> getSelectedPerson() {
+        return new SimpleObjectProperty<>(selectedPerson);
     }
 
     @Override
-    public void setPerson(Person person) {
-        this.person.map(p -> person);
+    public void setSelectedPerson(Person selectedPerson) {
+        this.selectedPerson.map(p -> selectedPerson);
     }
 
     /**
@@ -166,7 +166,7 @@ public class ModelManager implements Model {
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
                 && filteredPersons.equals(otherModelManager.filteredPersons)
-                && person.equals(otherModelManager.person);
+                && selectedPerson.equals(otherModelManager.selectedPerson);
     }
 
 }

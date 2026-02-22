@@ -10,10 +10,12 @@ import static seedu.address.testutil.TypicalPersons.ALICE;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Messages;
@@ -124,6 +126,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableValue<Optional<Person>> getSelectedPerson() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -146,6 +153,11 @@ public class AddCommandTest {
         @Override
         public void editPerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedPerson(Person selectedPerson) {
+
         }
 
         @Override

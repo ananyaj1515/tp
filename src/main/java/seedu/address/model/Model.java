@@ -75,7 +75,7 @@ public interface Model {
      * Returns an {@code ObservableValue} that contains the currently selected person,
      * or an empty {@code Optional} if no person is selected.
      */
-    ObservableValue<Optional<Person>> getPerson();
+    ObservableValue<Optional<Person>> getSelectedPerson();
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -87,7 +87,7 @@ public interface Model {
     /**
      * Sets the currently viewed person,
      */
-    void setPerson(Person person);
+    void setSelectedPerson(Person selectedPerson);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
