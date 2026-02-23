@@ -45,4 +45,17 @@ public class ViewCommand extends Command {
                 personToView.getName()));
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof ViewCommand)) {
+            return false;
+        }
+
+        ViewCommand otherViewCommand = (ViewCommand) other;
+        return index.equals(otherViewCommand.index);
+    }
 }

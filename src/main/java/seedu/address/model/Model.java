@@ -4,7 +4,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import javafx.beans.value.ObservableValue;
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
@@ -55,7 +55,8 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in
+     * the address book.
      */
     boolean hasPerson(Person person);
 
@@ -72,15 +73,17 @@ public interface Model {
     void addPerson(Person person);
 
     /**
-     * Returns an {@code ObservableValue} that contains the currently selected person,
-     * or an empty {@code Optional} if no person is selected.
+     * Returns an {@code ObjectProperty} that contains the currently selected
+     * person,
+     * so that the UI can observe selection changes.
      */
-    ObservableValue<Optional<Person>> getSelectedPerson();
+    ObjectProperty<Optional<Person>> getSelectedPerson();
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another
+     * existing person in the address book.
      */
     void editPerson(Person target, Person editedPerson);
 
@@ -93,7 +96,9 @@ public interface Model {
     ObservableList<Person> getFilteredPersonList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered person list to filter by the given
+     * {@code predicate}.
+     * 
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);

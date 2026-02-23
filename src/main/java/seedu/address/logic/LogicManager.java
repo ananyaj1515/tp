@@ -6,7 +6,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import javafx.beans.value.ObservableValue;
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -26,8 +26,7 @@ import seedu.address.storage.Storage;
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_FORMAT = "Could not save data due to the following error: %s";
 
-    public static final String FILE_OPS_PERMISSION_ERROR_FORMAT =
-            "Could not save data to file %s due to insufficient permissions to write to the file or the folder.";
+    public static final String FILE_OPS_PERMISSION_ERROR_FORMAT = "Could not save data to file %s due to insufficient permissions to write to the file or the folder.";
 
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
@@ -36,7 +35,8 @@ public class LogicManager implements Logic {
     private final AddressBookParser addressBookParser;
 
     /**
-     * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
+     * Constructs a {@code LogicManager} with the given {@code Model} and
+     * {@code Storage}.
      */
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -48,9 +48,13 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        return execute(command);
+    }
+
+    @Override
+    public CommandResult execute(Command command) throws CommandException {
+        CommandResult commandResult = command.execute(model);
 
         try {
             storage.saveAddressBook(model.getAddressBook());
@@ -74,7 +78,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableValue<Optional<Person>> getSelectedPerson() {
+    public ObjectProperty<Optional<Person>> getSelectedPerson() {
         return model.getSelectedPerson();
     }
 
