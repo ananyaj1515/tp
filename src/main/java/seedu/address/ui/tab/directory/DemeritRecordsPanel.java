@@ -1,5 +1,8 @@
 package seedu.address.ui.tab.directory;
 
+import java.util.Optional;
+
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -7,12 +10,17 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
+import seedu.address.model.person.Person;
 import seedu.address.ui.UiPart;
 
 /**
  * A panel containing a table of Demerit records.
  */
 public class DemeritRecordsPanel extends UiPart<Region> {
+
+    /** The person whose demerit records would be shown **/
+    private ObservableValue<Optional<Person>> selectedPerson;
+
     private static final String FXML = "directory/DemeritRecordsPanel.fxml";
 
     @FXML
@@ -26,7 +34,7 @@ public class DemeritRecordsPanel extends UiPart<Region> {
     @FXML
     private TableColumn<DemeritRecordDummy, Integer> severityColumn;
 
-    public DemeritRecordsPanel() {
+    public DemeritRecordsPanel(ObservableValue<Optional<Person>> selectedPerson) {
         super(FXML);
 
         // Initialize columns

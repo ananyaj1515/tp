@@ -1,5 +1,8 @@
 package seedu.address.ui.tab.directory;
 
+import java.util.Optional;
+
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -7,12 +10,17 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
+import seedu.address.model.person.Person;
 import seedu.address.ui.UiPart;
 
 /**
  * A panel containing a table of CCA records.
  */
 public class CcaRecordsPanel extends UiPart<Region> {
+
+    /** The person whose detail would be shown in the CCA Records panel **/
+    private ObservableValue<Optional<Person>> selectedPerson;
+
     private static final String FXML = "directory/CcaRecordsPanel.fxml";
 
     @FXML
@@ -26,7 +34,7 @@ public class CcaRecordsPanel extends UiPart<Region> {
     @FXML
     private TableColumn<CcaRecordDummy, String> descriptionColumn;
 
-    public CcaRecordsPanel() {
+    public CcaRecordsPanel(ObservableValue<Optional<Person>> selectedPerson) {
         super(FXML);
 
         // Initialize columns

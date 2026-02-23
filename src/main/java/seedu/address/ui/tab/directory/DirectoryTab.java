@@ -1,15 +1,22 @@
 package seedu.address.ui.tab.directory;
 
+import java.util.Optional;
+
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import javafx.scene.control.TabPane;
+import seedu.address.model.person.Person;
 import seedu.address.ui.UiPart;
 
 /**
  * A ui for the main tab that is displayed on the main window.
  */
 public class DirectoryTab extends UiPart<Region> {
+
+    /** The person whose details would be shown in the directory tab **/
+    private ObservableValue<Optional<Person>> selectedPerson;
 
     private static final String FXML = "directory/DirectoryTab.fxml";
 
@@ -25,20 +32,20 @@ public class DirectoryTab extends UiPart<Region> {
     @FXML
     private StackPane demeritRecordsPlaceholder;
 
-    public DirectoryTab() {
+    public DirectoryTab(ObservableValue<Optional<Person>> selectedPerson) {
         super(FXML);
-
+        this.selectedPerson = selectedPerson;
         fillInnerParts();
     }
 
     private void fillInnerParts() {
-        StudentProfilePanel studentProfilePanel = new StudentProfilePanel();
+        StudentProfilePanel studentProfilePanel = new StudentProfilePanel(selectedPerson);
         profilePlaceholder.getChildren().add(studentProfilePanel.getRoot());
 
-        CcaRecordsPanel ccaRecordsPanel = new CcaRecordsPanel();
+        CcaRecordsPanel ccaRecordsPanel = new CcaRecordsPanel(selectedPerson);
         ccaRecordsPlaceholder.getChildren().add(ccaRecordsPanel.getRoot());
 
-        DemeritRecordsPanel demeritRecordsPanel = new DemeritRecordsPanel();
+        DemeritRecordsPanel demeritRecordsPanel = new DemeritRecordsPanel(selectedPerson);
         demeritRecordsPlaceholder.getChildren().add(demeritRecordsPanel.getRoot());
     }
 }

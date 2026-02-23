@@ -17,8 +17,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.component.CommandBox;
-import seedu.address.ui.component.FilterPanel;
-import seedu.address.ui.component.PersonListPanel;
+import seedu.address.ui.list.FilterPanel;
+import seedu.address.ui.list.PersonListPanel;
 import seedu.address.ui.component.ResultDisplay;
 import seedu.address.ui.component.StatusBarFooter;
 import seedu.address.ui.tab.dashboard.DashboardTab;
@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
+
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
@@ -131,7 +132,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        DirectoryTab directoryTab = new DirectoryTab();
+        DirectoryTab directoryTab = new DirectoryTab(logic.getSelectedPerson());
         directoryTabPlaceholder.getChildren().add(directoryTab.getRoot());
 
         DashboardTab dashboardTab = new DashboardTab();

@@ -1,9 +1,6 @@
 package seedu.address.ui.tab.dashboard;
 
-import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
-import seedu.address.ui.component.FilterPanel;
 import seedu.address.ui.UiPart;
 
 /**
