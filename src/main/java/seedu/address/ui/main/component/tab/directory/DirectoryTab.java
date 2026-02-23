@@ -15,11 +15,11 @@ import seedu.address.ui.UiPart;
  */
 public class DirectoryTab extends UiPart<Region> {
 
-    /** The person whose details would be shown in the directory tab **/
-    private ObjectProperty<Optional<Person>> selectedPerson;
-
     private static final String FXML = "main/component/tab/directory/DirectoryTab.fxml";
-
+    /**
+     * The person whose details would be shown in the directory tab
+     **/
+    private final ObjectProperty<Optional<Person>> selectedPerson;
     @FXML
     private TabPane detailsTabPane;
 

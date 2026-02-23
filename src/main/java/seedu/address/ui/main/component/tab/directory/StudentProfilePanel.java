@@ -14,11 +14,11 @@ import seedu.address.ui.UiPart;
  */
 public class StudentProfilePanel extends UiPart<Region> {
 
-    /** The person whose detail would be shown in the student profile panel **/
-    private ObjectProperty<Optional<Person>> selectedPerson;
-
     private static final String FXML = "main/component/tab/directory/StudentProfilePanel.fxml";
-
+    /**
+     * The person whose detail would be shown in the student profile panel
+     **/
+    private final ObjectProperty<Optional<Person>> selectedPerson;
     @FXML
     private TextField nameField;
     @FXML
@@ -48,11 +48,11 @@ public class StudentProfilePanel extends UiPart<Region> {
     private void updateStudentProfilePanel(Optional<Person> personOpt) {
         if (personOpt.isPresent()) {
             Person person = personOpt.get();
-            nameField.setText(person.getName().fullName);
+            nameField.setText(person.getName().fullName());
             genderField.setText("NOT IMPLEMENTED YET");
             blockField.setText("NOT IMPLEMENTED YET");
             floorField.setText("NOTE IMPLEMENTED YET");
-            addressField.setText(person.getAddress().value);
+            addressField.setText(person.getAddress().value());
             tagsField.setText(person.getTags().toString());
         } else {
             nameField.clear();

@@ -3,7 +3,6 @@ package seedu.address.ui.main.component.tab.directory;
 import java.util.Optional;
 
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,11 +18,11 @@ import seedu.address.ui.UiPart;
  */
 public class DemeritRecordsPanel extends UiPart<Region> {
 
-    /** The person whose demerit records would be shown **/
-    private ObjectProperty<Optional<Person>> selectedPerson;
-
     private static final String FXML = "main/component/tab/directory/DemeritRecordsPanel.fxml";
-
+    /**
+     * The person whose demerit records would be shown
+     **/
+    private final ObjectProperty<Optional<Person>> selectedPerson;
     @FXML
     private TableView<DemeritRecordDummy> demeritTableView;
     @FXML
@@ -87,27 +86,6 @@ public class DemeritRecordsPanel extends UiPart<Region> {
     }
 
     // Dummy class for UI placeholder binding
-    public static class DemeritRecordDummy {
-        private final String date;
-        private final String description;
-        private final int severity;
-
-        public DemeritRecordDummy(String date, String description, int severity) {
-            this.date = date;
-            this.description = description;
-            this.severity = severity;
-        }
-
-        public String getDate() {
-            return date;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public int getSeverity() {
-            return severity;
-        }
+        public record DemeritRecordDummy(String date, String description, int severity) {
     }
 }

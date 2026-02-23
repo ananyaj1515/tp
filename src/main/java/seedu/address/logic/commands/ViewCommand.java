@@ -51,11 +51,10 @@ public class ViewCommand extends Command {
             return true;
         }
 
-        if (!(other instanceof ViewCommand)) {
+        if (!(other instanceof ViewCommand otherViewCommand)) {
             return false;
         }
 
-        ViewCommand otherViewCommand = (ViewCommand) other;
         return index.equals(otherViewCommand.index);
     }
 }

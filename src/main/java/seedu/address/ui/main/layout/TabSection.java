@@ -22,7 +22,7 @@ public class TabSection extends UiPart<Region> {
 
     private static final String FXML = "main/layout/TabSection.fxml";
 
-    private Logic logic;
+    private final Logic logic;
 
     @FXML
     private TabPane tabPaneRoot;

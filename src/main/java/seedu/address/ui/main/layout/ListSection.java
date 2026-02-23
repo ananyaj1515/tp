@@ -16,7 +16,7 @@ public class ListSection extends UiPart<Region> {
 
     private static final String FXML = "main/layout/ListSection.fxml";
 
-    private Logic logic;
+    private final Logic logic;
 
     @FXML
     private StackPane filterPanelPlaceholder;

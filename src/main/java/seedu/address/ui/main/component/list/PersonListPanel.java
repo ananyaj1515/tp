@@ -64,7 +64,7 @@ public class PersonListPanel extends UiPart<Region> {
             return;
         }
 
-        logger.fine("Selection in person list changed to : '" + newSelected.getName().fullName + "'");
+        logger.fine("Selection in person list changed to : '" + newSelected.getName().fullName() + "'");
         selectedPerson.set(Optional.of(newSelected));
     }
 
@@ -93,7 +93,7 @@ public class PersonListPanel extends UiPart<Region> {
      */
     private void scrollToPersonCentered(Person person) {
         int index = personListView.getItems().indexOf(person);
-        assert(index >= 0) : "Selected person must exist in the list";
+        assert (index >= 0) : "Selected person must exist in the list";
         Platform.runLater(() -> personListView.scrollTo(index));
     }
 }

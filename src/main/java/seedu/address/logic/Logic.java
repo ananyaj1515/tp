@@ -19,7 +19,7 @@ import seedu.address.model.person.Person;
 public interface Logic {
     /**
      * Executes the command and returns the result.
-     * 
+     *
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
      * @throws CommandException If an error occurs during command execution.
@@ -29,7 +29,7 @@ public interface Logic {
 
     /**
      * Executes the pre-parsed command directly and returns the result.
-     * 
+     *
      * @param command The pre-constructed command.
      * @return the result of the command execution.
      * @throws CommandException If an error occurs during command execution.
@@ -43,7 +43,9 @@ public interface Logic {
      */
     ReadOnlyAddressBook getAddressBook();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /**
+     * Returns an unmodifiable view of the filtered list of persons
+     */
     ObservableList<Person> getFilteredPersonList();
 
     /* Returns an observable property of the selected person */

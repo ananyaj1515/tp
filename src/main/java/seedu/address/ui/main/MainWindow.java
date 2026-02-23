@@ -18,11 +18,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.UiPart;
 import seedu.address.ui.help.HelpWindow;
+import seedu.address.ui.main.component.list.PersonListPanel;
 import seedu.address.ui.main.layout.CommandBox;
+import seedu.address.ui.main.layout.ListSection;
 import seedu.address.ui.main.layout.ResultDisplay;
 import seedu.address.ui.main.layout.StatusBarFooter;
-import seedu.address.ui.main.layout.ListSection;
-import seedu.address.ui.main.component.list.PersonListPanel;
 import seedu.address.ui.main.layout.TabSection;
 
 /**
@@ -35,14 +35,14 @@ public class MainWindow extends UiPart<Stage> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    private Stage primaryStage;
+    private final Stage primaryStage;
 
-    private Logic logic;
+    private final Logic logic;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
-    private HelpWindow helpWindow;
+    private final HelpWindow helpWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -90,7 +90,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
-     * 
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -218,14 +218,14 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
-            logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            logger.info("Result: " + commandResult.feedbackToUser());
+            resultDisplay.setFeedbackToUser(commandResult.feedbackToUser());
 
-            if (commandResult.isShowHelp()) {
+            if (commandResult.showHelp()) {
                 handleHelp();
             }
 
-            if (commandResult.isExit()) {
+            if (commandResult.exit()) {
                 handleExit();
             }
 

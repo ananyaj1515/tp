@@ -18,11 +18,11 @@ import seedu.address.ui.UiPart;
  */
 public class CcaRecordsPanel extends UiPart<Region> {
 
-    /** The person whose detail would be shown in the CCA Records panel **/
-    private ObjectProperty<Optional<Person>> selectedPerson;
-
     private static final String FXML = "main/component/tab/directory/CcaRecordsPanel.fxml";
-
+    /**
+     * The person whose detail would be shown in the CCA Records panel
+     **/
+    private final ObjectProperty<Optional<Person>> selectedPerson;
     @FXML
     private TableView<CcaRecordDummy> ccaTableView;
     @FXML
@@ -34,6 +34,11 @@ public class CcaRecordsPanel extends UiPart<Region> {
     @FXML
     private TableColumn<CcaRecordDummy, String> descriptionColumn;
 
+    /**
+     * Creates a {@code CcaRecordsPanel} with the given {@code selectedPerson}.
+     *
+     * @param selectedPerson The person whose CCA records would be shown in this panel
+     */
     public CcaRecordsPanel(ObjectProperty<Optional<Person>> selectedPerson) {
         super(FXML);
         this.selectedPerson = selectedPerson;
@@ -83,27 +88,6 @@ public class CcaRecordsPanel extends UiPart<Region> {
     }
 
     // Dummy class for UI placeholder binding
-    public static class CcaRecordDummy {
-        private final int points;
-        private final String time;
-        private final String description;
-
-        public CcaRecordDummy(int points, String time, String description) {
-            this.points = points;
-            this.time = time;
-            this.description = description;
-        }
-
-        public int getPoints() {
-            return points;
-        }
-
-        public String getTime() {
-            return time;
-        }
-
-        public String getDescription() {
-            return description;
-        }
+        private record CcaRecordDummy(int points, String time, String description) {
     }
 }
