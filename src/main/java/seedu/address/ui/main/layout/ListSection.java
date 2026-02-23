@@ -34,7 +34,8 @@ public class ListSection extends UiPart<Region> {
         FilterPanel filterPanel = new FilterPanel();
         filterPanelPlaceholder.getChildren().add(filterPanel.getRoot());
 
-        PersonListPanel personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic);
+        PersonListPanel personListPanel = new PersonListPanel(logic.getFilteredPersonList(),
+                logic.getSelectedPerson());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
     }
 }
