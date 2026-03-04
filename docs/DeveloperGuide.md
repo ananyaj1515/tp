@@ -272,15 +272,23 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Product scope
 
-**Target user profile**:
+HallLedger is a desktop application for Resident Assistants (RAs) and other hall administrators who need to manage resident contact records quickly and accurately. It is optimized for hall-level resident administration, where users frequently need to search, update, and maintain resident details such as student ID, room assignment, contact information, and emergency contact details.
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+Beyond basic resident record management, HallLedger is intended to support common hall-administration workflows such as tagging residents by attributes (e.g. year of study, major, gender), monitoring occupancy at the room level, and serving as a foundation for future hall-management features such as merit/demerit tracking, retention-related review, and other resident administration tasks.
+
+HallLedger is not intended to replace university-wide housing allocation systems, payment systems, or institutional access-control systems. Its scope is limited to block-level or hall-level resident management and operational tracking.
+
+**Target user profile:**
+* has a need to manage a significant number of resident records within a hall or block
+* is a Resident Assistant (RA), hall administrator, or student leader handling resident administration
+* frequently needs to search for residents by name, student ID, room number, or tagged attributes
+* needs quick access to resident contact details and emergency contacts
+* prefers a desktop app over manual spreadsheets or scattered notes
 * can type fast
 * prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* is reasonably comfortable using CLI-style commands
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition:** HallLedger helps hall administrators manage resident records faster and with fewer errors than spreadsheets or manual lists, while providing a centralized and command-driven workflow tailored to hall operations.
 
 
 ### User stories
@@ -340,11 +348,21 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+1. Should work on any mainstream OS as long as it has Java 17 or above installed.
 
-*{More to be added}*
+2. Should be able to store up to 1000 students without a noticeable sluggishness in performance for typical usage.
+
+3. Should have a response time of <2 seconds for all instructions
+
+4. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+
+5. Interaction with the product should be intuitive even for non-technical users, eg: simple error messages should be displayed and help easily available when needed
+
+6. The project is not required to handle more than one user at a time
+
+7. The product is free to use and open source
+
+8. The product should not need an internet connection to use
 
 ### Glossary
 
