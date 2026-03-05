@@ -11,51 +11,41 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Jain Ananya
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/ananyaj1515.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/ananyaj1515)]
+[[portfolio](team/ananyaj1515)]
 
-* Role: Project Advisor
+* Role: Developer
+* Responsibilities: Git Tracker
 
-### Jane Doe
+### Pooja Raju
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/pr8190.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/pr8190)]
+[[portfolio](team/pr8190.md)]
 
-* Role: Team Lead
-* Responsibilities: UI
+- Role: Developer
+- Responsibilities: Data
+
+### Achar Pavithra
+
+<img src="images/pavithra-achar.png" width="200px">
+
+[[github](https://github.com/pavithra-achar)]
+
+* Role: Developer
+* Responsibilities:
 
 ### Hunter Raiyu Dinh
 
 <img src="images/dinhcodes.png" width="200px" alt="Hunter">
 
 [[github](http://github.com/dinhcodes)]
+[[portfolio](team/dinhcodes.md)]
 
 * Role: Developer
-* Responsibilities: Full stack, UI when needed
-
-### Jean Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
-
-### James Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: UI
+* Responsibilities: Full stack + UI
