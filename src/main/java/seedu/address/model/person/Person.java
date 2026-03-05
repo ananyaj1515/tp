@@ -20,20 +20,24 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final StudentId studentId;
 
     // Data fields
-    private final Address address;
+    private final RoomNumber roomNumber;
+    private final EmergencyContact emergencyContact;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, StudentId studentId, RoomNumber roomNumber, EmergencyContact emergencyContact, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, studentId, roomNumber, emergencyContact, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
+        this.studentId = studentId;
+        this.roomNumber = roomNumber;
+        this.emergencyContact = emergencyContact;
         this.tags.addAll(tags);
     }
 
@@ -49,10 +53,17 @@ public class Person {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public StudentId getStudentId() {
+        return studentId;
     }
 
+    public RoomNumber getRoomNumber() {
+        return roomNumber;
+    }
+
+    public EmergencyContact getEmergencyContact() {
+        return emergencyContact;
+    }
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -93,14 +104,16 @@ public class Person {
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
-                && address.equals(otherPerson.address)
+                && studentId.equals(otherPerson.studentId)
+                && roomNumber.equals(otherPerson.roomNumber)
+                && emergencyContact.equals(otherPerson.emergencyContact)
                 && tags.equals(otherPerson.tags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, studentId, roomNumber, emergencyContact, tags);
     }
 
     @Override
@@ -109,7 +122,9 @@ public class Person {
                 .add("name", name)
                 .add("phone", phone)
                 .add("email", email)
-                .add("address", address)
+                .add("address", studentId)
+                .add("roomNumber", roomNumber)
+                .add("emergencyContact", emergencyContact)
                 .add("tags", tags)
                 .toString();
     }

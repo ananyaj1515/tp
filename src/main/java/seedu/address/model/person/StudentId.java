@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Person's address in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
-public class Address {
+public class StudentId {
 
     public static final String MESSAGE_CONSTRAINTS = "Addresses can take any values, and it should not be blank";
 
@@ -24,16 +24,16 @@ public class Address {
      *
      * @param address A valid address.
      */
-    public Address(String address) {
-        requireNonNull(address);
-        checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
-        value = address;
+    public StudentId(String studentId) {
+        requireNonNull(studentId);
+        checkArgument(isValidStudentId(studentId), MESSAGE_CONSTRAINTS);
+        value = studentId;
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid student ID.
      */
-    public static boolean isValidAddress(String test) {
+    public static boolean isValidStudentId(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -49,12 +49,12 @@ public class Address {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Address)) {
+        if (!(other instanceof StudentId)) {
             return false;
         }
 
-        Address otherAddress = (Address) other;
-        return value.equals(otherAddress.value);
+        StudentId otherStudentId = (StudentId) other;
+        return value.equals(otherStudentId.value);
     }
 
     @Override
