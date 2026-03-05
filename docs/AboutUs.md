@@ -40,3 +40,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities:
 
+### Hunter Raiyu Dinh
+
+<img src="images/dinhcodes.png" width="200px" alt="Hunter">
+
+[[github](http://github.com/dinhcodes)]
+[[portfolio](team/dinhcodes.md)]
+
+* Role: Developer
+* Responsibilities: Full stack + UI
