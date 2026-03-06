@@ -1,7 +1,7 @@
 ---
-  layout: default.md
-  title: "Developer Guide"
-  pageNav: 3
+layout: default.md
+title: "Developer Guide"
+pageNav: 3
 ---
 
 # AB-3 Developer Guide
@@ -97,6 +97,7 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 <box type="info" seamless>
 
 **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
+
 </box>
 
 How the `Logic` component works:
@@ -272,73 +273,229 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Product scope
 
-**Target user profile**:
+HallLedger is a desktop application for Resident Assistants (RAs) and other hall administrators who need to manage resident contact records quickly and accurately. It is optimized for hall-level resident administration, where users frequently need to search, update, and maintain resident details such as student ID, room assignment, contact information, and emergency contact details.
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+Beyond basic resident record management, HallLedger is intended to support common hall-administration workflows such as tagging residents by attributes (e.g. year of study, major, gender), monitoring occupancy at the room level, and serving as a foundation for future hall-management features such as merit/demerit tracking, retention-related review, and other resident administration tasks.
+
+HallLedger is not intended to replace university-wide housing allocation systems, payment systems, or institutional access-control systems. Its scope is limited to block-level or hall-level resident management and operational tracking.
+
+**Target user profile:**
+* has a need to manage a significant number of resident records within a hall or block
+* is a Resident Assistant (RA), hall administrator, or student leader handling resident administration
+* frequently needs to search for residents by name, student ID, room number, or tagged attributes
+* needs quick access to resident contact details and emergency contacts
+* prefers a desktop app over manual spreadsheets or scattered notes
 * can type fast
 * prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* is reasonably comfortable using CLI-style commands
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition:** HallLedger helps hall administrators manage resident records faster and with fewer errors than spreadsheets or manual lists, while providing a centralized and command-driven workflow tailored to hall operations.
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person             |                                                                        |
-| `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
+| Priority | As a(n) …​   | I want to …​                                                     | So that I can…​                                             
+|----------|--------------|------------------------------------------------------------------|-------------------------------------------------------------|
+| `* * *`  | new user     | see usage instructions                                           | refer to instructions when I forget how to use the App      |
+| `* * *`  | RA           | add a new student contact                                        | keep up-to-date records of students under my care           |
+| `* * *`  | RA           | list all student contacts                                        | get an overview of students assigned to me                  |
+| `* * *`  | RA           | search for existing student contacts                             | quickly find a specific resident's information              |
+| `* * *`  | RA           | delete records of students                                       | remove entries of students no longer in hall                |
+| `* * *`  | RA           | clear all current student records                                | quickly reset the system for a new semester                 |
+| `* * *`  | RA           | edit existing contacts                                           | maintain accurate and up-to-date student resident records   |
+| `* * `   | RA           | view the data file in JSON                                       | enjoy data portability without opening the app              |
+| `* * *`  | RA           | filter existing contacts based on attributes (e.g., block, year) | easily view and manage specific groups of resident students |
+| `* * *`  | RA           | add custom tags to students                                      | allow for efficient categorisation of students              |
+| `* * `   | RA           | add and administer CCA point records to a student's profile      | track their CCA contributions accurately                    |
+| `* * `   | RA           | View student's CCA records                                       | minimize chance of someone else seeing them by accident     |
+| `* `     | RA           | rank students by their total accumulated points                  | minimize chance of someone else seeing them by accident     |
+| `* *`    | RA           | view student demerit records                                     | assess student's overall behaviour                          |
+| `* `     | RA           | generate occupancy reports by block and room                     | plan effectively for next semester's housing allocation     |
+| `* `     | RA           | export all data to a CSV file                                    | share or analyse data externally for admin use              |
+
 
 *{More to be added}*
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the HallLedger and the **Actor** is the Residential Assistant (RA), unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: UC01 - Add a new student**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. RA requests to add a new student, providing the student\'s details (e.g., name, phone, email, room number, tags).
+2. Hall Ledger adds the new student.
+3. Hall Ledger displays a success message with the added student\'s details.
 
-    Use case ends.
+   Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. RA provides an invalid format for the details (e.g., incorrect phone number format).
+    * 1a1. Hall Ledger shows an error message indicating the correct format.
+      Use case resumes from step 1.
 
+* 1b. A student with the exact same details already exists in the system.
+    * 1b1. Hall Ledger indicates that the student already exists.
+      Use case ends.
+
+* 1c. RA fails to provide compulsory details (name, phone, email, room number).
+    * 1c1. Hall Ledger shows an error message indicating the compulsory details.
+      Use case resumes from step 1.
+
+**Use case: UC02 - View a student\'s details (basic info, CCA, and demerit records)**
+
+**MSS**
+
+1. RA requests to list all students.
+2. Hall Ledger shows a list of students.
+3. RA requests to view the details of a specific student in the list using their index.
+4. Hall Ledger displays the selected student\'s basic information, alongside their CCA records and demerit records.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The student list is empty.
+    * 2a1. Hall Ledger indicates that the student list is empty.
+      Use case ends.
+
+* 3a. The given index is invalid.
+    * 3a1. Hall Ledger shows an error message indicating the invalid index.
+      Use case resumes at step 2.
+
+**Use case: UC03 - Edit a student\'s info**
+
+**MSS**
+
+1. RA requests to list all students.
+2. Hall Ledger shows a list of students.
+3. RA requests to edit, add (from default value), or delete specific details (e.g., phone, email, room number, tags) of a specific student using their index.
+4. Hall Ledger updates the student\'s details.
+5. Hall Ledger displays a success message with the updated student\'s details.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The student list is empty.
   Use case ends.
 
 * 3a. The given index is invalid.
-
-    * 3a1. AddressBook shows an error message.
-
+    * 3a1. Hall Ledger shows an error message indicating the invalid index.
       Use case resumes at step 2.
 
-*{More to be added}*
+* 3b. RA provides an invalid format for the details to be updated.
+    * 3b1. Hall Ledger shows an error message indicating the correct format.
+      Use case resumes at step 2.
+
+* 3c. RA provides details that are exactly the same as the existing ones, resulting in no changes.
+  Use case resumes at step 2.
+
+**Use case: UC04 - Delete or Clear student records**
+
+**MSS**
+
+1. RA requests to delete a specific student or clear all current student records.
+2. Hall Ledger deletes the specified student or clears all data.
+3. Hall Ledger displays a success message reflecting the changes.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. The student list is already empty.
+  Use case ends.
+
+* 1b. If deleting, the given index is invalid.
+    * 1b1. Hall Ledger shows an error message.
+      Use case resumes from step 1.
+
+**Use case: UC05 - Search, Filter, and Rank students**
+
+**MSS**
+
+1. RA requests to search by name, filter by specific attributes (e.g., block, year, tags), or rank students by name, CCA points, demerit points in a particular order.
+2. Hall Ledger processes the query.
+3. Hall Ledger shows a list of matching or ranked students.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. RA provides empty keywords or invalid criteria format.
+    * 1a1. Hall Ledger shows an error message indicating how to use the specific command correctly.
+      Use case ends.
+
+* 2a. No students match the given criteria.
+    * 2a1. Hall Ledger shows an empty list and indicates that 0 students were found.
+      Use case ends.
+
+**Use case: UC06 - Administer CCA point records**
+
+**MSS**
+
+1. RA requests to list all students.
+2. Hall Ledger shows a list of students.
+3. RA requests to add a CCA point record to a specific student using their index.
+4. Hall Ledger updates the student\'s CCA points.
+5. Hall Ledger displays a success message.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The student list is empty.
+  Use case ends.
+
+* 3a. The given index is invalid.
+    * 3a1. Hall Ledger shows an error message indicating the invalid index.
+      Use case resumes at step 2.
+
+**Use case: UC08 - Export data**
+
+**MSS**
+
+1. RA requests to export all student details data to a CSV file.
+2. Hall Ledger gathers the relevant data.
+3. Hall Ledger exports the file to the user\'s system.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. The student list is empty.
+    * 1a1. Hall Ledger indicates that there is no data to generate a report or export.
+      Use case ends.
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+1. Should work on any mainstream OS as long as it has Java 17 or above installed.
 
-*{More to be added}*
+2. Should be able to store up to 1000 students without a noticeable sluggishness in performance for typical usage.
+
+3. Should have a response time of <2 seconds for all instructions
+
+4. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+
+5. Interaction with the product should be intuitive even for non-technical users, eg: simple error messages should be displayed and help easily available when needed
+
+6. The project is not required to handle more than one user at a time
+
+7. The product is free to use and open source
+
+8. The product should not need an internet connection to use
 
 ### Glossary
 
+* **Hall** : A residential building on campus that houses students. Each hall is made up of multiple blocks, and each block is made up of multiple rooms.
+* **RA**: Resident Assistant, a student leader who is responsible for managing a block of rooms in a hall and the `students living in those rooms.
+* **CCA** : Co-Curricular Activities, which are activities that students participate in outside of their academic curriculum.
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Non-technical users** : Users who are not familiar with technical jargon, command-line interfaces, or programming concepts.
 
 --------------------------------------------------------------------------------------------------------------------
 
