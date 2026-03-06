@@ -22,11 +22,11 @@
 -------------------------------------------------------------------------------
 
 ### Project Characteristics
-* Written in OOP fashion: Provides a clean, extensible codebase for Software Engineering students.
-* Size: Approximately 6 KLoC, offering a realistic project scale without being overwhelming.
-* Documentation: Comes with comprehensive User and Developer guides adapted for the SpyGlass ecosystem.
-
+* The project simulates an ongoing software project for a desktop application (called Hall Ledger) used for managing 
+  student records for those living in halls.
+* It is written in OOP fashion. It provides a reasonably well-written code base bigger (around 6 KLoC) than what students usually write in beginner-level SE modules, without being overwhelmingly big.
+* It comes with a reasonable level of user and developer documentation.
 -------------------------------------------------------------------------------
 
 ### Acknowledgements
-- This project is based on the AddressBook-Level3 project created by the **[SE-EDU initiative]**(https://se-education.org/).
+- This project is based on the AddressBook-Level3 project created by the **[SE-EDU initiative](https://se-education.org/)**.
