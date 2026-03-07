@@ -2,10 +2,15 @@ package seedu.address.logic.commands;
 
 import seedu.address.model.Model;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_YEAR;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_MAJOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_MAJOR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_YEAR;
 
+/**
+ * Adds a tag to a resident in the hall ledger.
+ * The resident is identified using the index number from the displayed resident list.
+ * Existing tags will be overwritten by the newly provided tags.
+ */
 public class TagCommand extends Command {
 
     public static final String COMMAND_WORD = "tag";
@@ -24,8 +29,13 @@ public class TagCommand extends Command {
     public static final String TAG_SUCCESS = "Added Tag to Resident: %1$s";
     public static final String TAG_NOT_ADDED = "At least one tag (year / major / gender) must be provided.";
 
+    /**
+     * Executes the tag command.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return a {@code CommandResult} describing the result of the command execution.
+     */
     public CommandResult execute(Model model) {
         return new CommandResult("Tag added to resident in hall ledger");
     }
-
 }
