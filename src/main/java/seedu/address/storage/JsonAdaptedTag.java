@@ -1,10 +1,12 @@
 package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagType;
 
 /**
  * Jackson-friendly version of {@link Tag}.
@@ -12,19 +14,25 @@ import seedu.address.model.tag.Tag;
 class JsonAdaptedTag {
 
     private final String tagName;
+    private final String type;
 
     /**
      * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
      */
     @JsonCreator
-    public JsonAdaptedTag(String tagName) {
+    public JsonAdaptedTag(@JsonProperty("tagType") String type,
+                          @JsonProperty("tagName") String tagName) {
+
         this.tagName = tagName;
+        this.type = type;
     }
 
     /**
      * Converts a given {@code Tag} into this class for Jackson use.
      */
     public JsonAdaptedTag(Tag source) {
+
+        this.type = source.type.name();
         tagName = source.tagName;
     }
 
@@ -42,7 +50,13 @@ class JsonAdaptedTag {
         if (!Tag.isValidTagName(tagName)) {
             throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(tagName);
+        TagType type;
+        try {
+            type = TagType.valueOf(this.type);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalValueException("Invalid tag type: " + this.type);
+        }
+        return new Tag(type, tagName);
     }
 
 }
