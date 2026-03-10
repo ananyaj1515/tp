@@ -23,7 +23,7 @@
     "studentId" : "A1111111X",
     "roomNumber" : "R123",
     "emergencyContact" : "91234567",
-    "tags" : [ ]
+    "tags": [{"tagType":"MAJOR","tagName":"CS"},{"tagType":"YEAR","tagName":"Y1"}]
   }, {
     "name" : "Daniel Meier",
     "phone" : "87652533",
@@ -39,7 +39,7 @@
     "studentId" : "A3333333X",
     "roomNumber" : "R123",
     "emergencyContact" : "91234567",
-    "tags" : [ ]
+    "tags": [{"tagType":"MAJOR","tagName":"CS"},{"tagType":"YEAR","tagName":"Y1"}]
   }, {
     "name" : "Fiona Kunz",
     "phone" : "9482427",
@@ -47,7 +47,7 @@
     "studentId" : "A4444444X",
     "roomNumber" : "R123",
     "emergencyContact" : "91234567",
-    "tags" : [ ]
+    "tags": [{"tagType":"MAJOR","tagName":"CS"},{"tagType":"YEAR","tagName":"Y1"}]
   }, {
     "name" : "George Best",
     "phone" : "9482442",
@@ -55,6 +55,6 @@
     "studentId" : "A5555555X",
     "roomNumber" : "R123",
     "emergencyContact" : "91234567",
-    "tags" : [ ]
+    "tags": [{"tagType":"MAJOR","tagName":"CS"},{"tagType":"YEAR","tagName":"Y1"}]
   } ]
 }

@@ -6,7 +6,7 @@
     "studentId": "A1234567X",
     "roomNumber": "R123",
     "emergencyContact": "91234567",
-    "tags": [ "friends" ]
+    "tags": [{"tagType":"MAJOR","tagName":"CS"},{"tagType":"YEAR","tagName":"Y1"}]
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
@@ -14,6 +14,6 @@
     "studentId": "A1234567X",
     "roomNumber": "R123",
     "emergencyContact": "91234567",
-    "tags": [ "friends" ]
+    "tags": [{"tagType":"MAJOR","tagName":"CS"},{"tagType":"YEAR","tagName":"Y1"}]
   } ]
 }

@@ -21,7 +21,7 @@ public class TypicalPersons {
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withStudentId("A87654321").withEmail("johnd@example.com").withPhone("98765432")
             .withRoomNumber("R123").withEmergencyContact("91234567")
-            .withTags(new Object[]{TagType.MAJOR, "CS"}, new Object[]{TagType.YEAR, "2"}).build();
+            .withTags(new Object[]{TagType.MAJOR, "CS"}, new Object[]{TagType.YEAR, "Y2"}).build();
 
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@example.com").withStudentId("A1111111X").withRoomNumber("R123")
@@ -30,7 +30,7 @@ public class TypicalPersons {
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
             .withEmail("cornelia@example.com").withStudentId("A2222222X").withRoomNumber("R123")
             .withEmergencyContact("91234567")
-            .withTags(new Object[]{TagType.YEAR, "2"}).build();
+            .withTags(new Object[]{TagType.YEAR, "Y2"}).build();
 
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
             .withEmail("werner@example.com").withStudentId("A3333333X").withRoomNumber("R123")
