@@ -1,7 +1,26 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_STUDENTID_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.STUDENTID_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.STUDENTID_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MAJOR;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_YEAR;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STUDENTID_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MAJOR;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_YEAR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_ID;
@@ -22,7 +41,6 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.StudentId;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 public class EditCommandParserTest {
@@ -146,7 +164,7 @@ public class EditCommandParserTest {
 
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE));
 
-        // mulltiple valid fields repeated
+        // multiple valid fields repeated
         userInput = targetIndex.getOneBased() + PHONE_DESC_AMY + STUDENTID_DESC_AMY + EMAIL_DESC_AMY
                 + TAG_DESC_YEAR + PHONE_DESC_AMY + STUDENTID_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_YEAR
                 + PHONE_DESC_BOB + STUDENTID_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_MAJOR;
