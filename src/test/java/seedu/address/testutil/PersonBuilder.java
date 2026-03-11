@@ -25,8 +25,8 @@ public class PersonBuilder {
     public static final String DEFAULT_STUDENTID = "A1234567X";
     public static final String DEFAULT_ROOM_NUMBER = "R123";
     public static final String DEFAULT_EMERGENCY_CONTACT = "91234567";
-    public static final Tag  VALID_TAG_MAJOR = new Tag(TagType.MAJOR, "CS");
-    public static final Tag VALID_TAG_YEAR= new Tag(TagType.YEAR, "Y1");
+    public static final Tag VALID_TAG_MAJOR = new Tag(TagType.MAJOR, "CS");
+    public static final Tag VALID_TAG_YEAR = new Tag(TagType.YEAR, "Y1");
 
     private Name name;
     private Phone phone;
