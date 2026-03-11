@@ -14,40 +14,40 @@ public class TypicalPersons {
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withStudentId("A1234567X").withEmail("alice@example.com")
-            .withPhone("94351253")
-            .withRoomNumber("R123").withEmergencyContact("91234567")
+            .withPhone("+65 94351253")
+            .withRoomNumber("13E").withEmergencyContact("+65 91234567")
             .withTags(new Object[]{TagType.GENDER, "she"}).build();
 
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
-            .withStudentId("A87654321").withEmail("johnd@example.com").withPhone("98765432")
-            .withRoomNumber("R123").withEmergencyContact("91234567")
+            .withStudentId("A8765432Y").withEmail("johnd@example.com").withPhone("+65 98765432")
+            .withRoomNumber("10A").withEmergencyContact("+65 91234567")
             .withTags(new Object[]{TagType.MAJOR, "CS"}, new Object[]{TagType.YEAR, "Y2"}).build();
 
-    public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withEmail("heinz@example.com").withStudentId("A1111111X").withRoomNumber("R123")
-            .withEmergencyContact("91234567").build();
+    public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("+65 95352563")
+            .withEmail("heinz@example.com").withStudentId("A1111111X").withRoomNumber("12B")
+            .withEmergencyContact("+65 91234567").build();
 
-    public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withStudentId("A2222222X").withRoomNumber("R123")
-            .withEmergencyContact("91234567")
+    public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("+65 87652533")
+            .withEmail("cornelia@example.com").withStudentId("A2222222X").withRoomNumber("6C")
+            .withEmergencyContact("+65 91234567")
             .withTags(new Object[]{TagType.YEAR, "Y2"}).build();
 
-    public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
-            .withEmail("werner@example.com").withStudentId("A3333333X").withRoomNumber("R123")
-            .withEmergencyContact("91234567").build();
+    public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("+65 9482224")
+            .withEmail("werner@example.com").withStudentId("A3333333X").withRoomNumber("7E")
+            .withEmergencyContact("+65 91234567").build();
 
-    public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427")
-            .withEmail("lydia@example.com").withStudentId("A4444444X").withRoomNumber("R123")
-            .withEmergencyContact("91234567").build();
+    public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("+65 9482427")
+            .withEmail("lydia@example.com").withStudentId("A4444444X").withRoomNumber("14A")
+            .withEmergencyContact("+65 91234567").build();
 
-    public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
-            .withEmail("anna@example.com").withStudentId("A5555555X").withRoomNumber("R123")
-            .withEmergencyContact("91234567").build();
+    public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("+65 9482442")
+            .withEmail("anna@example.com").withStudentId("A5555555X").withRoomNumber("15N")
+            .withEmergencyContact("+65 91234567").build();
 
     // Manually added
-    public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
+    public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("+65 8482424")
             .withEmail("stefan@example.com").withStudentId("A6666666X").build();
-    public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
+    public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("+65 8482131")
             .withEmail("hans@example.com").withStudentId("A7777777X").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
@@ -68,6 +68,7 @@ public class TypicalPersons {
         AddressBook ab = new AddressBook();
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
+            System.out.println(person);
         }
         return ab;
     }

@@ -33,16 +33,16 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_PHONE_AMY = "11111111";
-    public static final String VALID_PHONE_BOB = "22222222";
+    public static final String VALID_PHONE_AMY = "+65 11111111";
+    public static final String VALID_PHONE_BOB = "+65 22222222";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_STUDENTID_AMY = "A1234567X";
-    public static final String VALID_STUDENTID_BOB = "A87654321";
-    public static final String VALID_ROOM_NUMBER_AMY = "R123";
-    public static final String VALID_ROOM_NUMBER_BOB = "R321";
-    public static final String VALID_EMERGENCY_CONTACT_AMY = "91234567";
-    public static final String VALID_EMERGENCY_CONTACT_BOB = "98765432";
+    public static final String VALID_STUDENTID_BOB = "A8765432Y";
+    public static final String VALID_ROOM_NUMBER_AMY = "13E";
+    public static final String VALID_ROOM_NUMBER_BOB = "4M";
+    public static final String VALID_EMERGENCY_CONTACT_AMY = "+65 91234567";
+    public static final String VALID_EMERGENCY_CONTACT_BOB = "+65 98765432";
     public static final Object[] VALID_TAG_MAJOR = {TagType.MAJOR, "CS"};
     public static final Object[] VALID_TAG_YEAR = {TagType.YEAR, "Y1"};
 
@@ -66,7 +66,10 @@ public class CommandTestUtil {
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_STUDENTID_DESC = " " + PREFIX_STUDENT_ID;
+    public static final String INVALID_STUDENTID_DESC = " " + PREFIX_STUDENT_ID + "Abcdef";
+    public static final String INVALID_ROOM_NUMBER_DESC = " " + PREFIX_ROOM_NUMBER + "a8";
+    public static final String INVALID_EMERGENCY_CONTACT_DESC = " " + PREFIX_EMERGENCY_CONTACT + "123A";
+
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
@@ -94,6 +97,9 @@ public class CommandTestUtil {
         try {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
+
+            System.out.println(expectedModel.getAddressBook());
+            System.out.println(actualModel.getAddressBook());
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
@@ -107,6 +113,7 @@ public class CommandTestUtil {
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
             Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
