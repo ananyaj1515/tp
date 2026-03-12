@@ -7,7 +7,7 @@ package seedu.address.model.tag;
 public enum TagType {
     YEAR(1),
     MAJOR(2),
-    GENDER(2);
+    GENDER(1);
 
     private final int maxTagsPerType;
 
