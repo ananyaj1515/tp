@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -22,84 +21,84 @@ public class FilterDetails {
     }
 
     // ==================== Setters ======================
-    public void setNameKeywords(List<String> nameKeywords) {
+    public void setNameKeywords(Set<String> nameKeywords) {
         this.nameKeywords = nameKeywords;
     }
 
-    public void setEmailKeywords(List<String> emailKeywords) {
+    public void setEmailKeywords(Set<String> emailKeywords) {
         this.emailKeywords = emailKeywords;
     }
 
-    public void setPhoneNumberKeywords(List<String> phoneNumberKeywords) {
+    public void setPhoneNumberKeywords(Set<String> phoneNumberKeywords) {
         this.phoneNumberKeywords = phoneNumberKeywords;
     }
 
-    public void setRoomNumberKeywords(List<String> roomNumberKeywords) {
+    public void setRoomNumberKeywords(Set<String> roomNumberKeywords) {
         this.roomNumberKeywords = roomNumberKeywords;
     }
 
-    public void setStudentIdKeywords(List<String> studentIdKeywords) {
+    public void setStudentIdKeywords(Set<String> studentIdKeywords) {
         this.studentIdKeywords = studentIdKeywords;
     }
 
-    public void setEmergencyContactKeywords(List<String> emergencyContactKeywords) {
+    public void setEmergencyContactKeywords(Set<String> emergencyContactKeywords) {
         this.emergencyContactKeywords = emergencyContactKeywords;
     }
 
-    public void setTagKeywords(List<String> tagKeywords) {
+    public void setTagKeywords(Set<String> tagKeywords) {
         this.tagKeywords = tagKeywords;
     }
 
-    public void setTagYearKeywords(List<String> tagYearKeywords) {
+    public void setTagYearKeywords(Set<String> tagYearKeywords) {
         this.tagYearKeywords = tagYearKeywords;
     }
 
-    public void setTagMajorKeywords(List<String> tagMajorKeywords) {
+    public void setTagMajorKeywords(Set<String> tagMajorKeywords) {
         this.tagMajorKeywords = tagMajorKeywords;
     }
 
-    public void setTagGenderKeywords(List<String> tagGenderKeywords) {
+    public void setTagGenderKeywords(Set<String> tagGenderKeywords) {
         this.tagGenderKeywords = tagGenderKeywords;
     }
 
     // ==================== Getters ======================
-    public List<String> getNameKeywords() {
+    public Set<String> getNameKeywords() {
         return nameKeywords;
     }
 
-    public List<String> getEmailKeywords() {
+    public Set<String> getEmailKeywords() {
         return emailKeywords;
     }
 
-    public List<String> getPhoneNumberKeywords() {
+    public Set<String> getPhoneNumberKeywords() {
         return phoneNumberKeywords;
     }
 
-    public List<String> getRoomNumberKeywords() {
+    public Set<String> getRoomNumberKeywords() {
         return roomNumberKeywords;
     }
 
-    public List<String> getStudentIdKeywords() {
+    public Set<String> getStudentIdKeywords() {
         return studentIdKeywords;
     }
 
-    public List<String> getEmergencyContactKeywords() {
+    public Set<String> getEmergencyContactKeywords() {
         return emergencyContactKeywords;
     }
 
-    public List<String> getTagKeywords() {
+    public Set<String> getTagKeywords() {
         return tagKeywords;
     }
 
-    public List<String> getTagYearKeywords() {
+    public Set<String> getTagYearKeywords() {
         return tagYearKeywords;
     }
 
-    public List<String> getTagMajorKeywords() {
+    public Set<String> getTagMajorKeywords() {
         return tagMajorKeywords;
     }
 
-    public List<String> getTagGenderKeywords() {
+    public Set<String> getTagGenderKeywords() {
         return tagGenderKeywords;
     }
 }

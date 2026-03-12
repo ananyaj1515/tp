@@ -77,12 +77,12 @@ public class ArgumentMultimap {
     }
 
     /**
-     * Returns a new ArgumentMultimap with all empty string values removed.
-     * If a prefix has only empty string values, that prefix will be removed from the map entirely.
+     * Returns a new ArgumentMultimap with all empty string values removed, and prefixes that only have empty string
+     * values will be removed entirely.
      *
-     * @return a new {@code ArgumentMultimap} with empty string values removed
+     * @return a new {@code ArgumentMultimap} with empty string values and empty prefixes removed
      */
-    public ArgumentMultimap removeEmptyValues() {
+    public ArgumentMultimap removeEmptyValuesAndPrefix() {
         ArgumentMultimap cleanedMap = new ArgumentMultimap();
         for (Map.Entry<Prefix, List<String>> entry : argMultimap.entrySet()) {
             List<String> nonEmptyValues = new ArrayList<>();
