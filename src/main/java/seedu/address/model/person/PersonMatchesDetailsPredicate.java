@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.FilterDetails;
 
@@ -21,137 +22,64 @@ public class PersonMatchesDetailsPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        // OR-based across criteria: if any criterion matches, the person is included.
-        // Each individual criterion is itself OR over its own keyword set.
-
-        boolean matchesName = matchesName(person);
-        boolean matchesEmail = matchesEmail(person);
-        boolean matchesPhone = matchesPhone(person);
-        boolean matchesRoom = matchesRoom(person);
-        boolean matchesStudentId = matchesStudentId(person);
-        boolean matchesEmergencyContact = matchesEmergencyContact(person);
-        boolean matchesTag = matchesGeneralTags(person);
-        boolean matchesTagYear = matchesYearTags(person);
-        boolean matchesTagMajor = matchesMajorTags(person);
-        boolean matchesTagGender = matchesGenderTags(person);
-
-        return matchesName
-                || matchesEmail
-                || matchesPhone
-                || matchesRoom
-                || matchesStudentId
-                || matchesEmergencyContact
-                || matchesTag
-                || matchesTagYear
-                || matchesTagMajor
-                || matchesTagGender;
+        return matchesName(person)
+                || matchesSimpleField(person.getEmail().value, filterDetails.getEmailKeywords())
+                || matchesSimpleField(person.getPhone().value, filterDetails.getPhoneNumberKeywords())
+                || matchesSimpleField(person.getRoomNumber().value, filterDetails.getRoomNumberKeywords())
+                || matchesSimpleField(person.getStudentId().value, filterDetails.getStudentIdKeywords())
+                || matchesSimpleField(person.getEmergencyContact().value,
+                        filterDetails.getEmergencyContactKeywords())
+                || matchesFuzzyTags(person, filterDetails.getTagKeywords())
+                || matchesExactTags(person, filterDetails.getTagYearKeywords())
+                || matchesFuzzyTags(person, filterDetails.getTagMajorKeywords())
+                || matchesExactTags(person, filterDetails.getTagGenderKeywords());
     }
 
+    // === Name matching (special: uses containsWordIgnoreCase on split words) ===
     private boolean matchesName(Person person) {
-        Set<String> keywords = filterDetails.getNameKeywords();
-        if (keywords == null || keywords.isEmpty()) {
+        Set<String> nameKeywords = filterDetails.getNameKeywords();
+        assert nameKeywords != null : "nameKeywords should be non-null";
+        if (nameKeywords.isEmpty()) {
             return false;
         }
         String fullName = person.getName().fullName;
-        return keywords.stream()
-                .anyMatch(keyword -> seedu.address.commons.util.StringUtil
-                        .containsWordIgnoreCase(fullName, keyword));
+        return nameKeywords.stream()
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(fullName, keyword));
     }
 
-    private boolean matchesEmail(Person person) {
-        Set<String> keywords = filterDetails.getEmailKeywords();
-        if (keywords == null || keywords.isEmpty()) {
+    // === Shared pipeline for simple string fields (email, phone, room, studentId, emergencyContact) ===
+    private boolean matchesSimpleField(String fieldValue, Set<String> keywords) {
+        assert keywords != null : "keywords set should be non-null";
+        if (keywords.isEmpty()) {
             return false;
         }
-        String email = person.getEmail().value;
-        // Email is taken as whole: containsIgnoreCase is enough as a simple fuzzy match
+        String lowerField = fieldValue.toLowerCase(Locale.ROOT);
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsIgnoreCase(email, keyword));
+                .map(k -> k.toLowerCase(Locale.ROOT))
+                .anyMatch(lowerField::contains);
     }
 
-    private boolean matchesPhone(Person person) {
-        Set<String> keywords = filterDetails.getPhoneNumberKeywords();
-        if (keywords == null || keywords.isEmpty()) {
+    // === Tag helpers without BiPredicate ===
+    private boolean matchesFuzzyTags(Person person, Set<String> keywords) {
+        assert keywords != null : "tag keyword set should be non-null";
+        if (keywords.isEmpty()) {
             return false;
         }
-        String phone = person.getPhone().value;
-        return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsIgnoreCase(phone, keyword));
+        return person.getTags().stream().anyMatch(tag -> {
+            String lowerTag = tag.tagName.toLowerCase(Locale.ROOT);
+            return keywords.stream()
+                    .map(k -> k.toLowerCase(Locale.ROOT))
+                    .anyMatch(lowerTag::contains);
+        });
     }
 
-    private boolean matchesRoom(Person person) {
-        Set<String> keywords = filterDetails.getRoomNumberKeywords();
-        if (keywords == null || keywords.isEmpty()) {
+    private boolean matchesExactTags(Person person, Set<String> keywords) {
+        assert keywords != null : "tag keyword set should be non-null";
+        if (keywords.isEmpty()) {
             return false;
         }
-        String room = person.getRoomNumber().value;
-        return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsIgnoreCase(room, keyword));
-    }
-
-    private boolean matchesStudentId(Person person) {
-        Set<String> keywords = filterDetails.getStudentIdKeywords();
-        if (keywords == null || keywords.isEmpty()) {
-            return false;
-        }
-        String studentId = person.getStudentId().value;
-        // Student ID: treat as whole string, simple containsIgnoreCase
-        return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsIgnoreCase(studentId, keyword));
-    }
-
-    private boolean matchesEmergencyContact(Person person) {
-        Set<String> keywords = filterDetails.getEmergencyContactKeywords();
-        if (keywords == null || keywords.isEmpty()) {
-            return false;
-        }
-        String emergencyContact = person.getEmergencyContact().value;
-        return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsIgnoreCase(emergencyContact, keyword));
-    }
-
-    private boolean matchesGeneralTags(Person person) {
-        Set<String> keywords = filterDetails.getTagKeywords();
-        if (keywords == null || keywords.isEmpty()) {
-            return false;
-        }
-        // General tags: OR if any keyword matches any tag name (case-insensitive contains)
         return person.getTags().stream().anyMatch(tag ->
-                keywords.stream().anyMatch(keyword ->
-                        StringUtil.containsIgnoreCase(tag.tagName, keyword)));
-    }
-
-    private boolean matchesYearTags(Person person) {
-        Set<String> keywords = filterDetails.getTagYearKeywords();
-        if (keywords == null || keywords.isEmpty()) {
-            return false;
-        }
-        // Year tags: exact (case-insensitive) match
-        return person.getTags().stream().anyMatch(tag ->
-                keywords.stream().anyMatch(keyword ->
-                        tag.tagName.equalsIgnoreCase(keyword)));
-    }
-
-    private boolean matchesMajorTags(Person person) {
-        Set<String> keywords = filterDetails.getTagMajorKeywords();
-        if (keywords == null || keywords.isEmpty()) {
-            return false;
-        }
-        // Major tags: fuzzy/contains match
-        return person.getTags().stream().anyMatch(tag ->
-                keywords.stream().anyMatch(keyword ->
-                        StringUtil.containsIgnoreCase(tag.tagName, keyword)));
-    }
-
-    private boolean matchesGenderTags(Person person) {
-        Set<String> keywords = filterDetails.getTagGenderKeywords();
-        if (keywords == null || keywords.isEmpty()) {
-            return false;
-        }
-        // Gender tags: exact (case-insensitive) match
-        return person.getTags().stream().anyMatch(tag ->
-                keywords.stream().anyMatch(keyword ->
-                        tag.tagName.equalsIgnoreCase(keyword)));
+                keywords.stream().anyMatch(keyword -> tag.tagName.equalsIgnoreCase(keyword)));
     }
 
     @Override
