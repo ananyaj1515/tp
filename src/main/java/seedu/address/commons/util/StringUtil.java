@@ -17,16 +17,17 @@ public class StringUtil {
 
     /**
      * Returns true if the {@code sentence} contains the {@code word}.
-     *   Ignores case, but a full word match is required.
+     *   Ignores case, allows fuzzy match as described by {@link #fuzzyMatchesIgnoresCase(String, String)}.
      *   <br>examples:<pre>
      *       containsWordIgnoreCase("ABc def", "abc") == true
      *       containsWordIgnoreCase("ABc def", "DEF") == true
-     *       containsWordIgnoreCase("ABc def", "AB") == false //not a full word match
+     *       containsWordIgnoreCase("ABc def", "Adc") == true // fuzzy match, delete B, add D
+     *       containsWordIgnoreCase("ABcdefe def", "AB") == false // not a fuzzy match
      *       </pre>
      * @param sentence cannot be null
      * @param word cannot be null, cannot be empty, must be a single word
      */
-    public static boolean containsWordIgnoreCase(String sentence, String word) {
+    public static boolean fuzzyMatchesWordIgnoreCase(String sentence, String word) {
         requireNonNull(sentence);
         requireNonNull(word);
 
@@ -38,7 +39,7 @@ public class StringUtil {
         String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
 
         return Arrays.stream(wordsInPreppedSentence)
-                .anyMatch(preppedWord::equalsIgnoreCase);
+                .anyMatch(w -> fuzzyMatchesIgnoresCase(w, preppedWord));
     }
 
     /**

@@ -5,7 +5,6 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
-import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.FilterDetails;
 import seedu.address.model.tag.Tag;
 
@@ -146,8 +145,7 @@ public class PersonMatchesDetailsPredicate implements Predicate<Person> {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .add("filterDetails", filterDetails)
-                .toString();
+        return "Filter Details:"
+                + filterDetails.toString();
     }
 }

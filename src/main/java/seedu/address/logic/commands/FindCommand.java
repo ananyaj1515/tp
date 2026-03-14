@@ -3,7 +3,9 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.function.Predicate;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
@@ -26,6 +28,8 @@ public class FindCommand extends Command {
 
     private final Predicate<Person> predicate;
 
+    private final Logger logger = LogsCenter.getLogger(FindCommand.class);
+
     /**
      * Creates a FindCommand to find the specified {@code Person} using the given {@code NameContainsKeywordsPredicate}.
      *
@@ -42,6 +46,7 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        logger.info("[FIND COMMAND][" + predicate.toString() + "]");
         model.updateFilteredPersonList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));

@@ -95,7 +95,7 @@ public class FilterDetails {
 
     @Override
     public String toString() {
-        return "FilterDetails{"
+        return "{"
                 + "nameKeywords=" + nameKeywords
                 + ", emailKeywords=" + emailKeywords
                 + ", phoneNumberKeywords=" + phoneNumberKeywords
