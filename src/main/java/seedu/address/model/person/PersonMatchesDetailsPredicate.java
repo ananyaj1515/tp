@@ -19,22 +19,30 @@ public class PersonMatchesDetailsPredicate implements Predicate<Person> {
         this.filterDetails = Objects.requireNonNull(filterDetails);
     }
 
+    /**
+     * Returns true if the person matches all the details specified in the {@link FilterDetails}.
+     *
+     * @param person the person to be tested against the filter details
+     * @return true if the person matches all the details specified in the filterDetails, false otherwise
+     */
     @Override
     public boolean test(Person person) {
         return isNameMatch(person)
-                || isFuzzyMatch(person.getEmail().value, filterDetails.getEmailKeywords())
-                || isFuzzyMatch(person.getPhone().value, filterDetails.getPhoneNumberKeywords())
-                || isExactMatch(person.getRoomNumber().value, filterDetails.getRoomNumberKeywords())
-                || isFuzzyMatch(person.getStudentId().value, filterDetails.getStudentIdKeywords())
-                || isExactMatch(person.getEmergencyContact().value,
-                        filterDetails.getEmergencyContactKeywords())
-                || matchesFuzzyTags(person, filterDetails.getTagKeywords())
-                || matchesExactTags(person, filterDetails.getTagYearKeywords())
-                || matchesFuzzyTags(person, filterDetails.getTagMajorKeywords())
-                || matchesExactTags(person, filterDetails.getTagGenderKeywords());
+                & isFuzzyMatch(person.getEmail().value, filterDetails.getEmailKeywords())
+                & isFuzzyMatch(person.getPhone().value, filterDetails.getPhoneNumberKeywords())
+                & isExactMatch(person.getRoomNumber().value, filterDetails.getRoomNumberKeywords())
+                & isFuzzyMatch(person.getStudentId().value, filterDetails.getStudentIdKeywords())
+                & isExactMatch(person.getEmergencyContact().value, filterDetails.getEmergencyContactKeywords())
+                // TODO: Integrate proper person getters into the following lines
+                & matchesFuzzyTags(person, filterDetails.getTagKeywords())
+                & matchesExactTags(person, filterDetails.getTagYearKeywords())
+                & matchesFuzzyTags(person, filterDetails.getTagMajorKeywords())
+                & matchesExactTags(person, filterDetails.getTagGenderKeywords());
     }
 
-    // Name matching
+    /**
+     * Name matching is done using {@link NameContainsKeywordsPredicate#test(Person)}
+     * */
     private boolean isNameMatch(Person person) {
         NameContainsKeywordsPredicate predicate =
                 new NameContainsKeywordsPredicate(filterDetails.getNameKeywords().stream().toList());
@@ -61,12 +69,11 @@ public class PersonMatchesDetailsPredicate implements Predicate<Person> {
     }
 
     // Substring matching (not case-sensitive)
-    // TODO: Implement fuzzy Match
+    // TODO: Move this to StringUtil perhaps? Or implement a more robust substring matching algorithm
     private boolean isSubstringMatch(String fieldValue, Set<String> keywords) {
         return isExactMatch(fieldValue, keywords);
     }
 
-    // === Tag helpers without BiPredicate ===
     private boolean matchesFuzzyTags(Person person, Set<String> keywords) {
         assert keywords != null : "tag keyword set should be non-null";
         if (keywords.isEmpty()) {
