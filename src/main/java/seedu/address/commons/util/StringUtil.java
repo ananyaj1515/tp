@@ -87,7 +87,7 @@ public class StringUtil {
      * Returns true if any of the words in the {@code wordSet} fuzzy matches the {@code word}.
      * <br></br>
      * Ignores case, fuzzy match is done through the Levenshtein distance
-     * algorithm in {@link #fuzzyMatch(String, String)}.
+     * algorithm in {@link #fuzzyMatchesIgnoresCase(String, String)}.
      */
     public static boolean fuzzyMatchesWordInSetIgnoreCase(String word, Set<String> wordSet) {
         requireNonNull(word);
@@ -99,7 +99,7 @@ public class StringUtil {
 
         return wordSet.stream()
                 .map(k -> k.toLowerCase().trim())
-                .anyMatch(k -> fuzzyMatch(preppedWord, k));
+                .anyMatch(k -> fuzzyMatchesIgnoresCase(preppedWord, k));
     }
 
     /**
@@ -108,28 +108,36 @@ public class StringUtil {
      * Exact matches are always returned as true.
      * For strings longer than 2 characters, a Levenshtein distance of up to 2 edits is allowed for small typos.
      * Read more about Levenshtein distance <a href="https://en.wikipedia.org/wiki/Levenshtein_distance">here</a>
-     *
+     *<br>
+     * examples:<pre>
+     *    fuzzyMatchIgnoresCase("ABc", "abc") == true
+     *    fuzzyMatchIgnoresCase("abc", "acd") == true // delete c, add d
+     *    fuzzyMatchIgnoresCase("abc", "ccc") == false // requires 3 edits
+     *    </pre>
      * @param s1 String to compare
      * @param s2 String to compare
      * @return true if the strings match exactly or fall within the typo threshold
      */
-    public static boolean fuzzyMatch(String s1, String s2) {
+    public static boolean fuzzyMatchesIgnoresCase(String s1, String s2) {
         requireNonNull(s1);
         requireNonNull(s2);
 
         checkArgument(!s1.isEmpty(), "Word parameter cannot be empty");
         checkArgument(!s2.isEmpty(), "Word parameter cannot be empty");
 
-        if (s1.equals(s2)) {
+        String s1Processed = s1.toLowerCase().trim();
+        String s2Processed = s2.toLowerCase().trim();
+
+        if (s1Processed.equals(s2Processed)) {
             return true;
         }
 
-        if (s1.length() <= 2 || s2.length() <= 2) {
+        if (s1Processed.length() <= 2 || s2Processed.length() <= 2) {
             return false;
         }
 
         LevenshteinDistance levenshtein = new LevenshteinDistance(2);
-        Integer distance = levenshtein.apply(s1, s2);
+        Integer distance = levenshtein.apply(s1Processed, s2Processed);
 
         return distance != null && distance != -1;
     }
