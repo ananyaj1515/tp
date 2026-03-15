@@ -1,11 +1,16 @@
 package seedu.address.ui;
 
+import java.util.Set;
+
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
+import seedu.address.commons.util.StringUtil;
 
 /**
  * Panel containing the list of filtering and sorting options.
@@ -15,6 +20,8 @@ public class FilterPanel extends UiPart<Region> {
 
     @FXML
     private TextField nameFilterField;
+    @FXML
+    private FlowPane nameTags;
     @FXML
     private TextField phoneNumberFilterField;
     @FXML
@@ -61,7 +68,17 @@ public class FilterPanel extends UiPart<Region> {
 
         sortByComboBox.getItems().addAll("Ascending", "Descending");
         sortByComboBox.getSelectionModel().selectFirst();
+    }
 
-        nameFilterField.setOnKeyPressed();
+    @FXML
+    private void handleNameFilterFieldEntered() {
+        nameTags.getChildren().clear();
+        String nameFilterText = nameFilterField.getText();
+        if (nameFilterText.trim().isEmpty()) {
+            return;
+        }
+        Set<String> nameFilterKeywordsSet = StringUtil.chunkSentenceIntoWords(nameFilterText);
+        nameFilterKeywordsSet.forEach(tag -> nameTags.getChildren().add(new Label(tag)));
+        nameFilterField.clear();
     }
 }
