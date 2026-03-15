@@ -67,6 +67,12 @@ public class StringUtil {
         }
     }
 
+    /**
+     * Splits a given sentence into words and returns a set of the words in the sentence.
+     *
+     * @param sentence sentence to be split into words. Cannot be null.
+     * @return a set of the words in the sentence.
+     */
     public static Set<String> chunkSentenceIntoWords(String sentence) {
         requireNonNull(sentence);
         String trimmedSentence = sentence.trim();
