@@ -70,8 +70,12 @@ public class FilterPanel extends UiPart<Region> {
         sortByComboBox.getSelectionModel().selectFirst();
     }
 
+    /*
+    * Handles the event when the user presses 'Enter' in the name filter field.
+    * Splits the input into individual keywords and displays them as tags in the UI.
+     */
     @FXML
-    private void handleNameFilterFieldEntered() {
+    private void handleNameFieldEntered() {
         nameTags.getChildren().clear();
         String nameFilterText = nameFilterField.getText();
         if (nameFilterText.trim().isEmpty()) {

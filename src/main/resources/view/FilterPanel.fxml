@@ -19,7 +19,7 @@
                 <VBox spacing="5.0">
                     <Label styleClass="label-bright" text="Search by Name" />
                     <TextField fx:id="nameFilterField" promptText="E.g: Alex"
-                               onAction="#handleNameFilterFieldEntered"/>
+                               onAction="#handleNameFieldEntered"/>
                <FlowPane fx:id="nameTags" prefWidth="200.0" rowValignment="TOP" />
                 </VBox>
 
