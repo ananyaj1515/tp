@@ -37,7 +37,7 @@ public class TagCommand extends Command {
             + PREFIX_TAG_YEAR + "2 "
             + PREFIX_TAG_MAJOR + "CS "
             + "Note if the student has a double major specify like "
-            +  "[" + PREFIX_TAG_MAJOR + "MAJOR1 and MAJOR2]";
+            + "[" + PREFIX_TAG_MAJOR + "MAJOR1 and MAJOR2]";
 
     public static final String TAG_SUCCESS = "Added Tag to Resident: %1$s";
     public static final String TAG_NOT_ADDED = "At least one tag (year / major / gender) must be provided.";

@@ -64,7 +64,7 @@ public class PersonUtil {
             if (tags.isEmpty()) {
                 sb.append(PREFIX_TAG);
             } else {
-                tags.forEach((type, tag ) -> sb.append(PREFIX_TAG).append(tag.tagName).append(" "));
+                tags.forEach((type, tag) -> sb.append(PREFIX_TAG).append(tag.tagName).append(" "));
             }
         }
         return sb.toString();
