@@ -3,68 +3,71 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
 /**
- * Controller for a help page
+ * Controller for the HallLedger help window.
  */
 public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://ay2526s2-cs2103t-t15-1.github.io/tp/";
-    public static final String HELP_MESSAGE = "Refer to the HallLedger user guide: " + USERGUIDE_URL;
+
+    private static final String HELP_CONTENT =
+            "• add - add n=NAME i=STUDENT_ID r=ROOM_NUMBER p=PHONE_NUMBER "
+                    + "e=EMAIL ec=EMERGENCY_CONTACT\n\n"
+                    + "• delete - delete i=STUDENT_ID\n\n"
+                    + "• edit - edit <INDEX> [n=NEW_NAME] [i=NEW_ID] [p=NEW_PHONE] "
+                    + "[e=NEW_EMAIL] [r=NEW_ROOM_NUMBER] [ec=NEW_E_CONTACT]\n\n"
+                    + "• find - find [n=NAME] [i=STUDENT_ID] [r=ROOM_NUMBER] [p=PHONE] "
+                    + "[e=EMAIL] [t=TAG]\n\n"
+                    + "• tag - tag <INDEX> [y=YEAR] [m=MAJOR] [g=GENDER]\n\n"
+                    + "• list - list\n\n"
+                    + "• clear - clear\n\n"
+                    + "• help - help\n\n"
+                    + "• exit - exit";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
     @FXML
-    private Button copyButton;
+    private Label helpContent;
 
     @FXML
-    private Label helpMessage;
+    private Label guideText;
 
     /**
      * Creates a new HelpWindow.
      *
+     * @param owner Stage to use as the owner of the HelpWindow.
      * @param root Stage to use as the root of the HelpWindow.
      */
-    public HelpWindow(Stage root) {
+    public HelpWindow(Stage owner, Stage root) {
         super(FXML, root);
-        helpMessage.setText(HELP_MESSAGE);
+        root.initOwner(owner);
+        root.initModality(Modality.WINDOW_MODAL);
+        root.setResizable(false);
+
+        helpContent.setText(HELP_CONTENT);
+        guideText.setText("Refer to the HallLedger User Guide for more details:\n" + USERGUIDE_URL);
     }
 
     /**
      * Creates a new HelpWindow.
+     *
+     * @param owner Stage to use as the owner of the HelpWindow.
      */
-    public HelpWindow() {
-        this(new Stage());
+    public HelpWindow(Stage owner) {
+        this(owner, new Stage());
     }
 
     /**
      * Shows the help window.
-     *
-     * @throws IllegalStateException <ul>
-     *                                   <li>
-     *                                       if this method is called on a thread other than the JavaFX Application
-     *                                       Thread.
-     *                                   </li>
-     *                                   <li>
-     *                                       if this method is called during animation or layout processing.
-     *                                   </li>
-     *                                   <li>
-     *                                       if this method is called on the primary stage.
-     *                                   </li>
-     *                                   <li>
-     *                                       if {@code dialogStage} is already showing.
-     *                                   </li>
-     *                               </ul>
      */
     public void show() {
-        logger.fine("Showing help page about the application.");
+        logger.fine("Showing HallLedger help window.");
         getRoot().show();
         getRoot().centerOnScreen();
     }
@@ -88,16 +91,5 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
-    }
-
-    /**
-     * Copies the URL to the user guide to the clipboard.
-     */
-    @FXML
-    private void copyUrl() {
-        final Clipboard clipboard = Clipboard.getSystemClipboard();
-        final ClipboardContent url = new ClipboardContent();
-        url.putString(USERGUIDE_URL);
-        clipboard.setContent(url);
     }
 }
