@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -47,7 +46,7 @@ public class TagCommand extends Command {
     public final Map<TagType, Tag> tags;
 
     /**
-     * @param index of the person in the filtered person list to edit
+     * @param studentId of the person in the filtered person list to edit
      * @param tags list of tags to add to the person
      */
     public TagCommand(StudentId studentId, Map<TagType, Tag> tags) {
@@ -75,7 +74,8 @@ public class TagCommand extends Command {
         }
 
         if (personToTag == null) {
-            throw new CommandException(String.format("ResidentNotFound: No resident found with student ID %s.", studentId));
+            throw new CommandException(String.format("ResidentNotFound: No resident "
+                    + "found with student ID %s.", studentId));
         }
 
         HashMap<TagType, Tag> updatedTags = new HashMap<>(personToTag.getTags());
@@ -97,17 +97,4 @@ public class TagCommand extends Command {
 
         return new CommandResult(String.format(TAG_SUCCESS, Messages.format(taggedPerson)));
     }
-
-    //    private void checkTagLimits(HashMap<Tag, TagType> updatedTags) throws CommandException {
-    //        for (TagType type : TagType.values()) {
-    //            long countOfTagsPerType = updatedTags.stream()
-    //                    .filter(tag -> tag.getTagType() == type)
-    //                    .count();
-    //            if (countOfTagsPerType > type.getMaxTagsPerType()) {
-    //                throw new CommandException(
-    //                        "Tag type " + type + " allows at most " + type.getMaxTagsPerType() + " tag(s) per person."
-    //                );
-    //            }
-    //        }
-    //    }
 }
