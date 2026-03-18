@@ -1,12 +1,13 @@
 package seedu.address.model.person;
 
-import java.util.Locale;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.model.FilterDetails;
+import seedu.address.model.tag.Tag;
 
 /**
  * Tests whether a {@code Person} matches the details specified in a {@link FilterDetails}.
@@ -15,6 +16,11 @@ public class PersonMatchesDetailsPredicate implements Predicate<Person> {
 
     private final FilterDetails filterDetails;
 
+    /**
+     * Creates a {@code PersonMatchesDetailsPredicate} with the given {@code FilterDetails}.
+     * <br>
+     * @param filterDetails person details to be used for matching.
+     */
     public PersonMatchesDetailsPredicate(FilterDetails filterDetails) {
         this.filterDetails = Objects.requireNonNull(filterDetails);
     }
@@ -37,7 +43,7 @@ public class PersonMatchesDetailsPredicate implements Predicate<Person> {
             return true;
         }
         NameContainsKeywordsPredicate predicate =
-                new NameContainsKeywordsPredicate(filterDetails.getNameKeywords().stream().toList());
+                new NameContainsKeywordsPredicate(listOfKeywords);
         return predicate.test(person);
     }
 
@@ -65,7 +71,12 @@ public class PersonMatchesDetailsPredicate implements Predicate<Person> {
         return keywords.stream().map(k -> k.toLowerCase(Locale.ROOT)).anyMatch(lower::contains);
     }
 
-    private boolean matchesFuzzyTags(Person person, Set<String> keywords) {
+    /**
+     * Checks if any of the {@code personTags} match any of the {@code keywords}.
+     * Fuzzy matching allows for minor typos or differences.
+     * Substring matching checks if the keyword is contained within the value.
+     */
+    private boolean isFuzzyMatchTags(Set<Tag> personTags, Set<String> keywords) {
         assert keywords != null : "tag keyword set should be non-null";
         if (keywords.isEmpty()) {
             return true;
@@ -78,7 +89,14 @@ public class PersonMatchesDetailsPredicate implements Predicate<Person> {
         });
     }
 
-    private boolean matchesExactTags(Person person, Set<String> keywords) {
+    /**
+     * Checks if any of the {@code personTags} exactly match any of the {@code keywords} (case-insensitive).
+     *
+     * @param personTags The set of tags from the person.
+     * @param keywords The set of keywords to match against.
+     * @return True if any tag exactly matches any keyword, false otherwise.
+     */
+    private boolean isExactMatchTags(Set<Tag> personTags, Set<String> keywords) {
         assert keywords != null : "tag keyword set should be non-null";
         if (keywords.isEmpty()) {
             return true;
@@ -102,8 +120,7 @@ public class PersonMatchesDetailsPredicate implements Predicate<Person> {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .add("filterDetails", filterDetails)
-                .toString();
+        return "Filter Details:"
+                + filterDetails.toString();
     }
 }
