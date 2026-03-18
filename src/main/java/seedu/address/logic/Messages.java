@@ -52,7 +52,7 @@ public class Messages {
                 .append(person.getEmergencyContact())
                 .append("; Tags: ");
         person.getTags().entrySet().stream()
-                .sorted(Map.Entry.comparingByKey())  // sort by TagType enum order
+                .sorted(Map.Entry.comparingByKey()) // sort by TagType enum order
                 .map(e -> "[" + e.getValue().getTagName() + "]")
                 .collect(Collectors.joining());
         return builder.toString();
