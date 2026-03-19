@@ -117,21 +117,22 @@ Examples:
 ### Locating persons: `find`
 
 Finds persons using one of two methods: 
-1. [Find by name keywords](#method-1-find-by-name-keywords)
+1. [Find by name](#method-1-find-by-name)
 2. [Find by attributes](#method-2-find-by-attributes)
 
-#### Method 1: Find by name keywords
+#### Method 1: Find by name
 
 Finds persons whose names contain any of the given keywords.
 
 Format: `find NAME_KEYWORD [MORE_NAME_KEYWORDS]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-* Supports fuzzy matching e.g. `find ann` will match `Ann`, `Anna`, `Ana` etc.
+* The case and order of the name keywords do not matter.
+  * e.g. `find Hans Bo` will give the same search result as `hans bo`
+* When searching multiple names, the hall ledger will locate anyone whose name matches any of the provided keywords. 
+  * e.g. `find Hans Bo Anna` will return `Hans Gruber`, `Bo Yang`, `Anna Lee` etc.
+* Exact spelling is not always required, as substring and fuzzy matches are supported. 
+  * e.g. `find anna` will match `Ann`, `Anne`, 
+    `Annabelle` etc.
 
 Examples:
 * `find John` returns `john` and `John Doe`
@@ -139,28 +140,32 @@ Examples:
 
 #### Method 2: Find by attributes
 
-Finds persons matching all specified attributes (AND search), while allowing multiple values for each attribute
-(OR search).
+Finds persons who match multiple attributes such as name, phone number, email or major.
 
 Format: `find [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [i=STUDENT_ID] [ec=EMERGENCY_CONTACT] [y=YEAR] [m=MAJOR] [g=GENDER]`
 
-* At least one attribute must be provided.
-* The search is case-insensitive.
-* AND search: Persons must match **all** the attribute types specified.
-    * e.g. `find n=Alice p=+65 91234567` returns persons with name that matches "Alice" AND phone number that matches 
-      "+65 91234567".
-* OR search: Within one single attribute type, persons matching **any** of the keywords will be returned.
-    * e.g. `find y=2 y=3` returns persons in Year 2 OR Year 3.
-    * e.g: `find n=Alice Bob  n=Charlie Daniel` returns persons with name that matches "Alice" OR "Bob" OR "Charlie" 
-      OR "Daniel"".
-* Fuzzy search support allows for substring match or near match for Name, Phone, Email, Student ID and Major fields.
+
+* The case and order of the attributes and their keywords do not matter. 
+  * e.g. `find n=Alice y=1` will give the same search 
+    result as `find y=1 n=ALICE`
+* Using different search parameters forces  the result to match all rules simultaneously. 
+  * e.g. `find n=Alice p=91234567 y=1` returns persons whose name is Alice, whose phone number is 91234567, and 
+    who are also in Year 1.
+* Conversely, searching multiple values under the same parameter returns results that can match any of those values.
+    * e.g. `find y=2 y=3` returns persons in Year 2 or Year 3.
+    * e.g: `find n=Hans Bo n=Anna` will return `Hans Gruber`, `Bo Yang`, `Anna Lee` etc.
+* Substring matching and fuzzy matching is supported for the Name, Phone, Email, and Student ID fields.
     * e.g. `p=9123` matches `+65 91234567`
     * e.g: `n=Liz` matches `Lizah`, `Lis`, `Elizabeth`, etc.
 
 Examples:
-* `find n=Alice p=91234567 y=1` returns persons with name "Alice", phone containing "91234567", and Year "1".
-* `find m=CS m=Economics g=Male g=Others` returns all persons with Major "CS" or Major "Economics", and identifies as 
-  "Male" or "Others".
+* `find m=CS m=Economics g=Male g=Others` returns persons majoring in CS or Economics, and whose gender is listed as 
+  Male or Others.
+* `find ec=+84 e=gmail` returns persons whose phone number fuzzy-matches or contains `+84`, and whose email 
+  fuzzy-matches or contains 
+  `gmail`.
+
+Read more about fuzzy matching here: [Fuzzy Matching](#not-implemented-yet).
 
 ### Deleting a person : `delete`
 
